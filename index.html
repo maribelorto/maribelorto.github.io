@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de dados da bomba</title>
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <input type="checkbox" name="" id="menu-toggle">
+
+        <div class="sidebar">
+            <div class="brand">
+                <h3>
+                    Tech Bombas
+                </h3>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-img" style="background-image: url(img6.avif)"></div>
+                <div class="profile-info">
+                    <h2>Olá cliente</h2>
+                    <small>Seja bem-vindo!</small>
+                </div>
+                <div class="profile-action">
+                    <a href="" class="btn btn-white">
+
+                    </a>
+                </div>
+                <div class="profile-icons">
+                    <span class="las la-user"></span>
+                    <span class="las la-comment-alt"></span>
+                    <span class="las la-file-invoice"></span>
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-item">
+                    <a href="" class="active">
+                        <span class="las la-home"></span>
+                        <span>Início</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="">
+                        <span class="las la-project-diagram"></span>
+                        <span>Equipamentos</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                   
+                </div>
+                <div class="menu-item">
+                    
+                    </a>
+                </div>
+                <div class="menu-item">
+                    
+                </div>
+                <div class="menu-item">
+                   
+                </div>
+                <div class="menu-item">
+                   
+                </div>
+                <div class="menu-item">
+                   
+                </div>
+            </div>
+            
+            <div class="sidebar-card">
+                <h3>Bem vindo!</h3>
+                <p> Portal de monitoramento em tempo real - sua solução para eficiência e segurança operacional!</p>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header>
+                <label for="menu-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+
+                <div class="head-icons">
+                    <span class="las la-search"></span>
+                    <span class="las la-comment-alt"></span>
+                    <span class="las la-bell"></span>
+                    <div class="head-avatar">
+                        <div class="avatar" style="background-image: url(img8.avif)"></div>
+                        <span>Meu perfil</span>
+                    </div>
+                </div>
+            </header>
+            
+            <main>
+                <div class="page-header">
+                    <h1>Monitoramento da Bomba Centrífuga 25-150</h1>
+                    <small>Tenha um ótimo dia!</small>
+                </div>
+                
+                <div class="analytics">
+                    <div class="card engage-card">
+                        <div class="card-head">
+                            Temperatura em Tempo Real
+                        </div>
+                        <div class="card-body">
+                            <h1 id="real-time-temperature" style="color:black">Carregando...</h1>
+                            <div class="chart-wrapper">
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card emails-card">
+                        <div class="card-head">
+                            Controle de Fluxo
+                        </div>
+                        <div class="card-body">
+                            <h1 id="real-time-fluxo" style="color:black">Carregando...</h1>
+                            <div id="emailChart"></div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="emails-info">
+                                <div class="email-stat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="card team-progress">
+                        <div class="card-head">
+                            <div class="team-head">
+                                    <div>
+                                        <h3>Histórico de dados da bomba</h3>
+                                        <br><br/>
+                                        <div class="search-bar">
+                                            <input type="date" id="search-date" placeholder="Pesquisar por data">
+                                            <button onclick="searchData()">Pesquisar</button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-container" style="display: flex;flex-direction: column-reverse;">
+                                                <table id="dados-tabela">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div id="mensagem-lista" class="card">
+                                                        <!-- Aqui serão exibidas as mensagens -->
+                                                    </div>
+                                                </table>
+                                            </div>
+
+                                            <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+                                            <script>
+                                                // Configuração do Firebase
+                                                let firebaseConfig = {
+                                                    apiKey: "AIzaSyDBPk9TL40RUnNYZDVNrtdob-8pav2L6o0",
+                                                    authDomain: "future-skills-9d296.firebaseapp.com",
+                                                    databaseURL: "https://future-skills-9d296-default-rtdb.firebaseio.com",
+                                                    projectId: "future-skills-9d296",
+                                                    storageBucket: "future-skills-9d296.appspot.com",
+                                                    messagingSenderId: "534479883675",
+                                                    appId: "1:534479883675:web:b0fd2ef996d09e4586253e",
+                                                    measurementId: "G-FKW9GRZQT5"
+                                                        };
+                                        
+                                                // Inicialização do Firebase
+                                                firebase.initializeApp(firebaseConfig);
+
+                                                const dbRef = firebase.database().ref('dados_bomba').orderByKey().limitToLast(1);
+
+                                                // Monitorando mudanças no último dado de temperatura
+                                                dbRef.on('value', function(snapshot) {
+                                                    snapshot.forEach(function(childSnapshot) {
+                                                        // Obtém o último dado de temperatura
+                                                        const message = childSnapshot.val();
+                                                        const temperatura = message.temperatura;
+
+                                                        // Atualiza o conteúdo do h1 com a temperatura em tempo real
+                                                        const temperaturaElement = document.getElementById('real-time-temperature');
+                                                        temperaturaElement.textContent = `Temperatura Atual: ${temperatura}°C`;
+                                                    });
+                                                });
+
+                                                        dbRef.on('value', function(snapshot) {
+                                                            snapshot.forEach(function(childSnapshot) {
+                                                                // Obtém o último dado de temperatura
+                                                                const message = childSnapshot.val();
+                                                                const temperatura = message.fluxo;
+
+                                                                // Atualiza o conteúdo do h1 com a temperatura em tempo real
+                                                                const temperaturaElement = document.getElementById('real-time-fluxo');
+                                                                temperaturaElement.innerHTML = `Fluxo Atual:<br>${temperatura} m³/h`;
+;
+                                                            });
+                                                        });
+                                                
+                                                // Referência para o nó 'Collected Data' no Realtime Database
+                                                let messagesRef = firebase.database().ref('dados_bomba');
+                                        
+                                                // Carregar as mensagens ao carregar a página
+                                                window.onload = function () {
+                                                    loadMessages();
+                                                };
+                                                
+                                                function loadMessages() {
+                                                    messagesRef.once('value', function (snapshot) {
+                                                        snapshot.forEach(function (childSnapshot) {
+                                                            let message = childSnapshot.val();
+                                                            displayMessage(message);
+                                                        });
+                                                    });
+                                                }
+                                        
+                                                function displayMessage(message) {
+                                                    let mensagemLista = document.getElementById('mensagem-lista');
+                                        
+                                                    // Cria um elemento de div para cada mensagem
+                                                    let mensagemDiv = document.createElement('div');
+                                                    mensagemDiv.classList.add('mensagem-item');
+                                        
+                                                    // Monta o HTML para exibir as informações da mensagem
+                                                    let mensagemHTML = `
+                                                        <p>Fluxo (m³/h):${message.fluxo}</p>
+                                                        <p>Temperatura (°C):${message.temperatura}</p>  
+                                                        <p>Data: ${message.data_hora}
+                                                        <hr>
+                                                    `;
+                                        
+                                                    // Define o HTML da div da mensagem
+                                                    mensagemDiv.innerHTML = mensagemHTML;
+                                        
+                                                    // Adiciona a div da mensagem à lista de mensagens
+                                                    mensagemLista.appendChild(mensagemDiv);
+                                                }
+                                            </script>
+</body>
+</html>
